@@ -8,6 +8,9 @@ config.font_size = 12
 config.hide_tab_bar_if_only_one_tab = true
 --config.window_decorations = "RESIZE"
 
+-- Allow Shift+Enter (and other modified keys) for multiline input in TUIs
+config.enable_kitty_keyboard = true
+
 -- Load the resurrect plugin
 local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
 
