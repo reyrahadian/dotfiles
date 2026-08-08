@@ -8,8 +8,10 @@ config.font_size = 12
 config.hide_tab_bar_if_only_one_tab = true
 --config.window_decorations = "RESIZE"
 
--- Allow Shift+Enter (and other modified keys) for multiline input in TUIs
-config.enable_kitty_keyboard = true
+-- Kitty keyboard protocol is deliberately OFF: it makes WezTerm send Esc as
+-- CSI 27;1;27~, which TUIs like Claude Code don't decode, so Esc appears dead.
+-- Shift+Enter is bound explicitly in config.keys instead.
+-- config.enable_kitty_keyboard = true
 
 -- Load the resurrect plugin
 local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
@@ -28,6 +30,12 @@ end)
 
 --config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 } -- If you use a leader key
 config.keys = {
+	-- Multiline input in TUIs without the kitty keyboard protocol
+	{
+		key = "Enter",
+		mods = "SHIFT",
+		action = wezterm.action.SendString("\x1b\r"),
+	},
 	-- Save state
 	{
 		key = "s",
